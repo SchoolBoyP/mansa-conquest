@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mansa Conquest — Building Legacies Through Strategic Investments</title>
+<meta name="description" content="Mansa Conquest is a diversified venture capital and private investment fund inspired by Mansa Musa. We build enduring legacies through strategic investments across eight sectors, operating in Kenya and Australia." />
+<meta name="keywords" content="Mansa Conquest, venture capital, private investment, Kenya, Australia, real estate, tech startups, mining, crypto, investment fund" />
+<meta property="og:title" content="Mansa Conquest — Building Legacies Through Strategic Investments" />
+<meta property="og:description" content="A diversified venture capital and private investment fund building enduring legacies across eight sectors." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --obsidian:#0B0B0C; --onyx:#141416; --graphite:#1E1E22; --graphite-2:#26262b;
+  --gold:#D4AF37; --gold-bright:#E8C658; --gold-deep:#A8842A;
+  --emerald:#0F5132; --emerald-light:#1A7A4E;
+  --ivory:#F5F1E6; --sand:#A89F8C; --line:#2A2A2E;
+  --success:#3FA66A; --danger:#D04545;
+  --maxw:1240px;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--obsidian);color:var(--ivory);font-family:var(--sans);
+  font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+::selection{background:var(--gold);color:var(--obsidian)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.1;letter-spacing:-.01em}
+.serif{font-family:var(--serif)}
+.gold{color:var(--gold)}
+.muted{color:var(--sand)}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--sans);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600;display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold);display:inline-block;opacity:.7}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:.9rem;font-weight:600;letter-spacing:.02em;padding:14px 28px;border-radius:8px;cursor:pointer;border:1px solid transparent;transition:.25s ease;white-space:nowrap}
+.btn-gold{background:linear-gradient(135deg,var(--gold-bright),var(--gold-deep));color:#1a1407;box-shadow:0 8px 30px -10px rgba(212,175,55,.6)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 40px -10px rgba(212,175,55,.75)}
+.btn-ghost{background:transparent;border-color:var(--line);color:var(--ivory)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn-arrow::after{content:"→";transition:.25s}
+.btn-arrow:hover::after{transform:translateX(4px)}
+
+/* ---------- Decorative ---------- */
+.grain{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.035;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.glow{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0}
+
+/* ---------- Nav ---------- */
+header{position:fixed;top:0;left:0;right:0;z-index:100;transition:.35s ease;border-bottom:1px solid transparent}
+header.scrolled{background:rgba(11,11,12,.82);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:78px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--serif);font-size:1.35rem;font-weight:700;letter-spacing:.02em}
+.crest{width:38px;height:38px;flex:0 0 auto}
+.nav-links{display:flex;align-items:center;gap:34px}
+.nav-links a{font-size:.86rem;font-weight:500;letter-spacing:.04em;color:var(--sand);position:relative;padding:6px 0;transition:.2s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:.3s}
+.nav-links a:hover,.nav-links a.active{color:var(--ivory)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-cta{display:flex;align-items:center;gap:14px}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{width:24px;height:2px;background:var(--ivory);transition:.3s;border-radius:2px}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ---------- Pages ---------- */
+.page{display:none;animation:fadePage .6s ease}
+.page.active{display:block}
+@keyframes fadePage{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+section{position:relative;z-index:2}
+.pad{padding:110px 0}
+.pad-sm{padding:70px 0}
+.center{text-align:center}
+.lead{font-size:1.15rem;color:var(--sand);max-width:660px}
+.section-head{max-width:720px;margin-bottom:56px}
+.section-head.center{margin-left:auto;margin-right:auto}
+.section-head h2{font-size:clamp(2.1rem,4.5vw,3.4rem);margin:18px 0 16px}
+
+/* ---------- Hero ---------- */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:78px}
+.hero .glow.g1{width:520px;height:520px;background:radial-gradient(circle,rgba(212,175,55,.22),transparent 70%);top:-120px;right:-80px}
+.hero .glow.g2{width:480px;height:480px;background:radial-gradient(circle,rgba(15,81,50,.35),transparent 70%);bottom:-160px;left:-120px}
+.hero-inner{max-width:900px}
+.hero h1{font-size:clamp(2.8rem,7vw,5.6rem);line-height:1.02;margin:24px 0}
+.hero h1 .shimmer{background:linear-gradient(100deg,var(--gold-deep),var(--gold-bright),var(--ivory),var(--gold-bright),var(--gold-deep));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+.hero p.lead{font-size:1.25rem;margin-bottom:38px}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+.scroll-hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--sand);display:flex;flex-direction:column;align-items:center;gap:10px}
+.scroll-hint::after{content:"";width:1px;height:40px;background:linear-gradient(var(--gold),transparent);animation:drop 1.8s ease-in-out infinite}
+@keyframes drop{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+/* ---------- Stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:48px 0}
+.stat .num{font-family:var(--serif);font-size:clamp(2.2rem,4vw,3.2rem);color:var(--gold);font-weight:600;line-height:1}
+.stat .lbl{font-size:.82rem;color:var(--sand);letter-spacing:.05em;margin-top:8px}
+
+/* ---------- Cards / grid ---------- */
+.grid{display:grid;gap:24px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:linear-gradient(160deg,var(--onyx),var(--graphite));border:1px solid var(--line);border-radius:16px;padding:32px;transition:.35s ease;position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(400px circle at var(--mx,50%) var(--my,0%),rgba(212,175,55,.08),transparent 60%);opacity:0;transition:.4s}
+.card:hover{transform:translateY(-6px);border-color:rgba(212,175,55,.45)}
+.card:hover::before{opacity:1}
+.card .ico{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.25);color:var(--gold);margin-bottom:20px;font-size:1.4rem}
+.card h3{font-size:1.45rem;margin-bottom:10px}
+.card p{color:var(--sand);font-size:.95rem}
+.card .more{margin-top:18px;font-size:.82rem;font-weight:600;color:var(--gold);letter-spacing:.04em;opacity:0;transform:translateY(6px);transition:.3s}
+.card:hover .more{opacity:1;transform:none}
+
+/* sector pill list */
+.tag{display:inline-block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.22);padding:5px 12px;border-radius:99px;margin:0 6px 10px 0}
+
+/* ---------- Feature split ---------- */
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+.frame{border:1px solid var(--line);border-radius:20px;padding:40px;background:linear-gradient(160deg,var(--onyx),#0e0e10);position:relative;overflow:hidden}
+.frame .glow{width:300px;height:300px;background:radial-gradient(circle,rgba(15,81,50,.4),transparent 70%);bottom:-100px;right:-80px}
+.kvr{display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.kvr:last-child{border-bottom:none}
+.kvr b{color:var(--gold);font-weight:600}
+
+/* SIR highlight */
+.sir{background:linear-gradient(135deg,rgba(15,81,50,.25),rgba(212,175,55,.08));border:1px solid rgba(212,175,55,.3);border-radius:20px;padding:56px;text-align:center;position:relative;overflow:hidden}
+.sir h2{font-size:clamp(2rem,4vw,3rem);margin:14px 0}
+
+/* ---------- About ---------- */
+.values{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.value{padding:28px;border-left:2px solid var(--gold);background:linear-gradient(90deg,rgba(212,175,55,.05),transparent)}
+.value h4{font-size:1.3rem;color:var(--ivory);margin-bottom:8px}
+.value p{color:var(--sand);font-size:.92rem}
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.member .avatar{aspect-ratio:1;border-radius:16px;background:linear-gradient(160deg,var(--graphite),var(--onyx));border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:3rem;color:var(--gold);margin-bottom:16px}
+.member h4{font-size:1.2rem}
+.member .role{color:var(--gold);font-size:.82rem;letter-spacing:.05em;margin-bottom:8px}
+.member p{color:var(--sand);font-size:.88rem}
+
+/* timeline */
+.tl{position:relative;padding-left:32px}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:1px;background:linear-gradient(var(--gold),transparent)}
+.tl-item{position:relative;padding:0 0 34px 8px}
+.tl-item::before{content:"";position:absolute;left:-29px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--obsidian);border:2px solid var(--gold)}
+.tl-item .yr{color:var(--gold);font-family:var(--serif);font-size:1.3rem}
+
+/* ---------- Portfolio ---------- */
+.banner{background:linear-gradient(135deg,rgba(212,175,55,.12),rgba(15,81,50,.15));border:1px dashed rgba(212,175,55,.4);border-radius:14px;padding:16px 22px;font-size:.88rem;color:var(--sand);margin-bottom:40px;text-align:center}
+.pf-card{background:linear-gradient(160deg,var(--onyx),var(--graphite));border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.35s}
+.pf-card:hover{transform:translateY(-6px);border-color:rgba(212,175,55,.4)}
+.pf-logo{height:140px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:2rem;color:var(--gold);background:radial-gradient(circle at 50% 0%,rgba(212,175,55,.12),transparent 70%);border-bottom:1px solid var(--line)}
+.pf-body{padding:22px}
+.pf-body .sec{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.pf-body h4{font-size:1.25rem;margin:6px 0 8px}
+.pf-body p{font-size:.88rem;color:var(--sand)}
+.pf-meta{display:flex;justify-content:space-between;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:.8rem;color:var(--sand)}
+.pf-meta b{color:var(--ivory);font-family:var(--serif);font-size:1.1rem}
+
+/* ---------- Forms / Apply ---------- */
+.form-wrap{max-width:760px;margin:0 auto}
+.steps{display:flex;justify-content:space-between;margin-bottom:40px;position:relative}
+.steps::before{content:"";position:absolute;top:18px;left:0;right:0;height:2px;background:var(--line);z-index:0}
+.step-prog{position:absolute;top:18px;left:0;height:2px;background:linear-gradient(90deg,var(--gold-deep),var(--gold-bright));z-index:1;transition:.4s;width:0}
+.step{position:relative;z-index:2;text-align:center;flex:1}
+.step .dot{width:38px;height:38px;border-radius:50%;background:var(--graphite);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-weight:600;transition:.3s;font-size:.9rem}
+.step.active .dot{border-color:var(--gold);color:var(--gold);box-shadow:0 0 0 4px rgba(212,175,55,.12)}
+.step.done .dot{background:var(--gold);border-color:var(--gold);color:#1a1407}
+.step .st-lbl{font-size:.74rem;color:var(--sand);letter-spacing:.04em}
+.step.active .st-lbl{color:var(--ivory)}
+.fstep{display:none;animation:fadePage .4s ease}
+.fstep.active{display:block}
+.field{margin-bottom:20px}
+.field label{display:block;font-size:.82rem;color:var(--sand);margin-bottom:8px;letter-spacing:.03em}
+.field label .req{color:var(--gold)}
+.field input,.field select,.field textarea{width:100%;background:var(--graphite);border:1px solid var(--line);border-radius:8px;padding:13px 15px;color:var(--ivory);font-family:var(--sans);font-size:.95rem;transition:.2s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.15)}
+.field input.err,.field select.err{border-color:var(--danger)}
+.errmsg{color:var(--danger);font-size:.78rem;margin-top:6px;display:none}
+.errmsg.show{display:block}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.choice label{display:flex;gap:12px;align-items:flex-start;padding:16px;border:1px solid var(--line);border-radius:10px;cursor:pointer;transition:.2s;margin:0}
+.choice label:hover{border-color:rgba(212,175,55,.4)}
+.choice input{width:auto;margin-top:3px;accent-color:var(--gold)}
+.choice label.sel{border-color:var(--gold);background:rgba(212,175,55,.06)}
+.choice .ct{color:var(--ivory);font-weight:500;font-size:.92rem}
+.choice .cd{color:var(--sand);font-size:.8rem}
+.form-nav{display:flex;justify-content:space-between;margin-top:30px}
+.review-box{background:var(--graphite);border:1px solid var(--line);border-radius:12px;padding:24px}
+.review-box .kvr b{color:var(--ivory)}
+.review-box .kvr span{color:var(--gold)}
+.success-card{text-align:center;padding:60px 20px}
+.success-card .check{width:80px;height:80px;border-radius:50%;background:rgba(63,166,106,.12);border:2px solid var(--success);color:var(--success);display:flex;align-items:center;justify-content:center;font-size:2.4rem;margin:0 auto 24px;animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+
+/* ---------- Login ---------- */
+.auth{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:110px 24px 60px;position:relative;overflow:hidden}
+.auth .glow{width:500px;height:500px;background:radial-gradient(circle,rgba(212,175,55,.16),transparent 70%);top:-100px;left:50%;transform:translateX(-50%)}
+.auth-card{width:100%;max-width:440px;background:linear-gradient(160deg,var(--onyx),#0e0e10);border:1px solid var(--line);border-radius:20px;padding:44px;position:relative;z-index:2}
+.auth-card h2{font-size:2rem;margin-bottom:6px}
+.auth-card .sub{color:var(--sand);font-size:.9rem;margin-bottom:30px}
+.divider{display:flex;align-items:center;gap:14px;color:var(--sand);font-size:.78rem;margin:22px 0}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+.tabs{display:flex;gap:8px;background:var(--graphite);padding:5px;border-radius:10px;margin-bottom:26px}
+.tabs button{flex:1;padding:10px;border:none;background:none;color:var(--sand);font-family:var(--sans);font-weight:600;font-size:.86rem;border-radius:7px;cursor:pointer;transition:.2s}
+.tabs button.active{background:var(--obsidian);color:var(--gold)}
+.note{font-size:.78rem;color:var(--sand);text-align:center;margin-top:18px}
+
+/* ---------- Footer ---------- */
+footer{border-top:1px solid var(--line);background:#08080a;padding:70px 0 30px;position:relative;z-index:2}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;margin-bottom:50px}
+.foot-grid h5{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sand);margin-bottom:18px}
+.foot-grid a{display:block;color:var(--sand);font-size:.9rem;padding:6px 0;transition:.2s}
+.foot-grid a:hover{color:var(--gold)}
+.foot-brand p{color:var(--sand);font-size:.9rem;max-width:300px;margin-top:16px}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:26px;font-size:.82rem;color:var(--sand);flex-wrap:wrap;gap:12px}
+.regtag{display:inline-flex;gap:8px;align-items:center;font-size:.78rem;color:var(--sand)}
+
+/* ---------- Reveal animation ---------- */
+.reveal{opacity:0;transform:translateY(28px);transition:.8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+
+/* ---------- Responsive ---------- */
+@media(max-width:960px){
+  .g4{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(2,1fr)}
+  .split{grid-template-columns:1fr;gap:40px}
+  .values,.team{grid-template-columns:1fr 1fr}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:30px}
+}
+@media(max-width:680px){
+  .nav-links{position:fixed;top:78px;left:0;right:0;flex-direction:column;background:rgba(11,11,12,.97);backdrop-filter:blur(14px);padding:24px;gap:6px;border-bottom:1px solid var(--line);transform:translateY(-130%);transition:.4s;align-items:flex-start}
+  .nav-links.open{transform:none}
+  .nav-links a{padding:12px 0;width:100%;border-bottom:1px solid var(--line)}
+  .nav-cta .btn-ghost{display:none}
+  .burger{display:flex}
+  .stats{grid-template-columns:1fr 1fr;gap:30px 16px}
+  .g2,.g3,.g4,.values,.team{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr}
+  .row2,.choice{grid-template-columns:1fr}
+  .sir{padding:36px 24px}
+  .pad{padding:72px 0}
+  .steps .st-lbl{display:none}
+  .auth-card{padding:32px 24px}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- ===================== NAV ===================== -->
+<header id="hdr">
+  <div class="container nav">
+    <a href="#/" class="brand" data-link>
+      <svg class="crest" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="19" stroke="#D4AF37" stroke-width="1.4"/>
+        <path d="M11 27V15l5 7 4-9 4 9 5-7v12" stroke="#D4AF37" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+        <circle cx="20" cy="10" r="1.8" fill="#D4AF37"/>
+      </svg>
+      Mansa Conquest
+    </a>
+    <nav class="nav-links" id="navlinks">
+      <a href="#/" data-link>Home</a>
+      <a href="#/about" data-link>About</a>
+      <a href="#/sectors" data-link>Sectors</a>
+      <a href="#/portfolio" data-link>Portfolio</a>
+      <a href="#/apply" data-link>Apply</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#/login" class="btn btn-ghost" data-link>Investor Login</a>
+      <a href="#/apply" class="btn btn-gold" data-link>Apply to Invest</a>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+
+<!-- ===================== HOME ===================== -->
+<div class="page" data-page="/">
+  <section class="hero">
+    <div class="glow g1"></div><div class="glow g2"></div>
+    <div class="container hero-inner">
+      <span class="eyebrow reveal">Diversified Venture Capital · Kenya & Australia</span>
+      <h1 class="reveal d1">Building Legacies Through <span class="shimmer">Strategic Investments</span></h1>
+      <p class="lead reveal d2">Inspired by Mansa Musa — whose wealth shaped empires — we conquer new horizons in wealth creation through innovative investment and resource development across eight sectors.</p>
+      <div class="hero-cta reveal d3">
+        <a href="#/apply" class="btn btn-gold btn-arrow" data-link>Apply to Invest </a>
+        <a href="#/sectors" class="btn btn-ghost" data-link>Explore Sectors</a>
+      </div>
+    </div>
+    <div class="scroll-hint">Scroll</div>
+  </section>
+
+  <section class="pad-sm">
+    <div class="container">
+      <div class="stats">
+        <div class="stat reveal"><div class="num" data-count="8">8</div><div class="lbl">Investment Sectors</div></div>
+        <div class="stat reveal d1"><div class="num" data-count="2">2</div><div class="lbl">Global Jurisdictions</div></div>
+        <div class="stat reveal d2"><div class="num" data-count="360">360°</div><div class="lbl">Diversified Strategy</div></div>
+        <div class="stat reveal d3"><div class="num">∞</div><div class="lbl">Legacy Horizon</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Our Mandate</span>
+        <h2>A diversified empire of opportunity</h2>
+        <p class="lead">We harness share funding from visionary investors to fuel innovative research and strategic investments — blending profitability with purpose across a deliberately diverse portfolio.</p>
+      </div>
+      <div class="grid g4" id="home-sectors"></div>
+      <div class="center" style="margin-top:44px">
+        <a href="#/sectors" class="btn btn-ghost btn-arrow" data-link>View all eight sectors </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad-sm">
+    <div class="container">
+      <div class="split">
+        <div class="reveal">
+          <span class="eyebrow">Why Mansa Conquest</span>
+          <h2 style="font-size:clamp(2rem,4vw,3rem);margin:16px 0 18px">Discipline of an institution. Vision of a conqueror.</h2>
+          <p class="muted" style="margin-bottom:24px">We pair rigorous diligence and governance with the boldness to enter frontier opportunities others overlook — from rare-earth exploration to emerging technology ventures.</p>
+          <p class="muted">With operations spanning East Africa and Australia, our global outlook turns regional advantage into enduring, cross-border value for our partners.</p>
+        </div>
+        <div class="frame reveal d2">
+          <div class="glow"></div>
+          <div class="kvr"><span>Investment philosophy</span><b>Profit with purpose</b></div>
+          <div class="kvr"><span>Portfolio approach</span><b>Diversified · 8 sectors</b></div>
+          <div class="kvr"><span>Presence</span><b>Kenya · Australia</b></div>
+          <div class="kvr"><span>Bespoke mandates</span><b>SIR service</b></div>
+          <div class="kvr"><span>Horizon</span><b>Generational</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad-sm">
+    <div class="container">
+      <div class="sir reveal">
+        <div class="glow" style="width:340px;height:340px;background:radial-gradient(circle,rgba(212,175,55,.18),transparent 70%);top:-120px;left:-60px"></div>
+        <span class="eyebrow" style="justify-content:center">Special Inquiry & Requests</span>
+        <h2>Beyond our sectors lies your vision</h2>
+        <p class="lead" style="margin:0 auto 28px">Our SIR service offers bespoke research and investment management for any field — an emerging industry we don't yet specialize in, or a unique project within our existing sectors. Entrust us to turn your vision into actionable, legacy-building investments.</p>
+        <a href="#/apply" class="btn btn-gold btn-arrow" data-link>Start a special inquiry </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad-sm">
+    <div class="container center">
+      <h2 class="reveal" style="font-size:clamp(2rem,4.5vw,3.4rem);max-width:760px;margin:0 auto 22px">Forge your legacy with Mansa Conquest</h2>
+      <p class="lead reveal d1" style="margin:0 auto 32px">Open to visionary investors ready to build wealth that endures.</p>
+      <div class="reveal d2" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+        <a href="#/apply" class="btn btn-gold" data-link>Apply to Invest</a>
+        <a href="#/login" class="btn btn-ghost" data-link>Investor Login</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== ABOUT ===================== -->
+<div class="page" data-page="/about">
+  <section class="pad" style="padding-top:160px">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">About Mansa Conquest</span>
+        <h2>The legacy of an empire, reimagined for modern wealth</h2>
+        <p class="lead">Inspired by Mansa Musa, the legendary ruler whose wealth shaped empires, Mansa Conquest is a venture capital firm dedicated to conquering new horizons in wealth creation.</p>
+      </div>
+      <div class="split">
+        <div class="reveal">
+          <p style="font-size:1.05rem;margin-bottom:20px">We harness the power of share funding from visionary investors to fuel innovative research and strategic investments across a diverse portfolio. From real estate and manufacturing to crypto, mining, fashion, logistics, and franchising, we seek opportunities that blend profitability with purpose.</p>
+          <p class="muted">With a global outlook and a commitment to excellence, Mansa Conquest empowers entrepreneurs and investors alike to forge their own paths to greatness. Our mission is simple and enduring: build legacies that last.</p>
+        </div>
+        <div class="frame reveal d2">
+          <div class="glow"></div>
+          <h3 style="font-size:1.6rem;margin-bottom:18px">Our presence</h3>
+          <div class="kvr"><span>🇰🇪 Kenya</span><b>East African operations</b></div>
+          <div class="kvr"><span>🇦🇺 Australia</span><b>Asia-Pacific operations</b></div>
+          <div class="kvr"><span>Structure</span><b>Private investment fund</b></div>
+          <div class="kvr"><span>Founded on</span><b>Legacy & diligence</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad-sm">
+    <div class="container">
+      <div class="section-head center reveal"><span class="eyebrow">Our Values</span><h2>Principles that endure</h2></div>
+      <div class="values">
+        <div class="value reveal"><h4>Legacy First</h4><p>We invest on generational horizons, prioritizing durable value over fleeting gains.</p></div>
+        <div class="value reveal d1"><h4>Profit with Purpose</h4><p>Every mandate blends return with meaningful resource and community development.</p></div>
+        <div class="value reveal d2"><h4>Bold Diligence</h4><p>The courage to enter frontier markets, tempered by institutional rigor and governance.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad-sm">
+    <div class="container">
+      <div class="split">
+        <div class="reveal">
+          <span class="eyebrow">Our Journey</span>
+          <h2 style="font-size:clamp(2rem,4vw,2.8rem);margin:16px 0 28px">From vision to empire</h2>
+          <div class="tl">
+            <div class="tl-item"><div class="yr">Origins</div><p class="muted">Founded on the conviction that diversified, disciplined capital can build lasting legacies.</p></div>
+            <div class="tl-item"><div class="yr">Today</div><p class="muted">Operating across Kenya and Australia, deploying capital across eight strategic sectors.</p></div>
+            <div class="tl-item"><div class="yr">Tomorrow</div><p class="muted">Scaling a diversified portfolio and bespoke SIR mandates into a global investment platform.</p></div>
+          </div>
+        </div>
+        <div class="reveal d2">
+          <span class="eyebrow">Leadership</span>
+          <h2 style="font-size:clamp(2rem,4vw,2.8rem);margin:16px 0 28px">Stewards of capital</h2>
+          <div class="team" style="grid-template-columns:1fr 1fr">
+            <div class="member"><div class="avatar">MC</div><h4>General Partner</h4><div class="role">Founder & GP</div><p>Sets investment strategy and stewards partner capital.</p></div>
+            <div class="member"><div class="avatar">IR</div><h4>Investor Relations</h4><div class="role">Partner Relations</div><p>Guides LPs through onboarding, reporting and mandates.</p></div>
+          </div>
+          <p class="muted" style="font-size:.82rem;margin-top:14px">Team profiles shown as placeholders — ready for real bios.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== SECTORS ===================== -->
+<div class="page" data-page="/sectors">
+  <section class="pad" style="padding-top:160px">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow" style="justify-content:center">Investment Sectors</span>
+        <h2>Eight horizons of opportunity</h2>
+        <p class="lead" style="margin:0 auto">A deliberately diversified strategy — spanning tangible assets, frontier resources, and the technologies shaping tomorrow.</p>
+      </div>
+      <div class="grid g3" id="all-sectors"></div>
+    </div>
+  </section>
+  <section class="pad-sm">
+    <div class="container">
+      <div class="sir reveal">
+        <span class="eyebrow" style="justify-content:center">Don't see your field?</span>
+        <h2>Special Inquiry & Requests</h2>
+        <p class="lead" style="margin:0 auto 28px">Through our SIR service, we conduct bespoke research and manage capital in virtually any domain using our proven venture capital expertise.</p>
+        <a href="#/apply" class="btn btn-gold btn-arrow" data-link>Submit an inquiry </a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== PORTFOLIO ===================== -->
+<div class="page" data-page="/portfolio">
+  <section class="pad" style="padding-top:160px">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow" style="justify-content:center">Portfolio</span>
+        <h2>Where capital meets conquest</h2>
+        <p class="lead" style="margin:0 auto">A glimpse of the diversified ventures across our sectors.</p>
+      </div>
+      <div class="banner reveal">✦ Illustrative placeholders — sample companies shown to demonstrate layout. Real portfolio coming soon.</div>
+      <div class="grid g3" id="portfolio-grid"></div>
+      <div class="center" style="margin-top:48px">
+        <p class="lead" style="margin:0 auto 24px">Interested in co-investing alongside Mansa Conquest?</p>
+        <a href="#/apply" class="btn btn-gold" data-link>Apply to Invest</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== APPLY ===================== -->
+<div class="page" data-page="/apply">
+  <section class="pad" style="padding-top:150px">
+    <div class="container form-wrap">
+      <div class="section-head center reveal" style="margin-bottom:40px">
+        <span class="eyebrow" style="justify-content:center">Investor Application</span>
+        <h2 style="font-size:clamp(1.9rem,4vw,2.8rem)">Begin building your legacy</h2>
+        <p class="lead" style="margin:0 auto">A few details to start the conversation. Takes about three minutes.</p>
+      </div>
+
+      <div class="steps" id="steps">
+        <div class="step-prog" id="stepprog"></div>
+        <div class="step active"><div class="dot">1</div><div class="st-lbl">About you</div></div>
+        <div class="step"><div class="dot">2</div><div class="st-lbl">Investor profile</div></div>
+        <div class="step"><div class="dot">3</div><div class="st-lbl">Interests</div></div>
+        <div class="step"><div class="dot">4</div><div class="st-lbl">Review</div></div>
+      </div>
+
+      <form id="applyForm" novalidate>
+        <!-- Step 1 -->
+        <div class="fstep active" data-step="1">
+          <div class="row2">
+            <div class="field"><label>First name <span class="req">*</span></label><input name="firstName" data-req placeholder="Mansa"><div class="errmsg">Please enter your first name.</div></div>
+            <div class="field"><label>Last name <span class="req">*</span></label><input name="lastName" data-req placeholder="Musa"><div class="errmsg">Please enter your last name.</div></div>
+          </div>
+          <div class="field"><label>Email address <span class="req">*</span></label><input name="email" type="email" data-req data-email placeholder="you@example.com"><div class="errmsg">Please enter a valid email.</div></div>
+          <div class="row2">
+            <div class="field"><label>Phone</label><input name="phone" placeholder="+61 / +254 ..."></div>
+            <div class="field"><label>Country / Region <span class="req">*</span></label>
+              <select name="country" data-req>
+                <option value="">Select…</option>
+                <option>Kenya</option><option>Australia</option><option>United Kingdom</option>
+                <option>United States</option><option>United Arab Emirates</option><option>Other</option>
+              </select><div class="errmsg">Please select your country.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="fstep" data-step="2">
+          <div class="field"><label>Investor type <span class="req">*</span></label>
+            <div class="choice" data-radio="investorType">
+              <label><input type="radio" name="investorType" value="Individual" data-req><span><span class="ct">Individual</span><span class="cd">Personal investment</span></span></label>
+              <label><input type="radio" name="investorType" value="Entity / Company"><span><span class="ct">Entity / Company</span><span class="cd">Corporate vehicle</span></span></label>
+              <label><input type="radio" name="investorType" value="Trust / SMSF"><span><span class="ct">Trust / SMSF</span><span class="cd">Trust or super fund</span></span></label>
+              <label><input type="radio" name="investorType" value="Institutional"><span><span class="ct">Institutional</span><span class="cd">Fund / family office</span></span></label>
+            </div><div class="errmsg">Please choose an investor type.</div>
+          </div>
+          <div class="field"><label>Intended commitment range <span class="req">*</span></label>
+            <select name="ticket" data-req>
+              <option value="">Select a range…</option>
+              <option>Under $50,000</option><option>$50,000 – $250,000</option>
+              <option>$250,000 – $1,000,000</option><option>$1,000,000 – $5,000,000</option>
+              <option>$5,000,000+</option>
+            </select><div class="errmsg">Please select a commitment range.</div>
+          </div>
+          <div class="field"><label>Are you an accredited / wholesale / sophisticated investor?</label>
+            <select name="accredited">
+              <option value="">Prefer not to say</option>
+              <option>Yes</option><option>No</option><option>Unsure</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="fstep" data-step="3">
+          <div class="field"><label>Which sectors interest you most? <span class="req">*</span></label>
+            <div id="sector-checks" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div>
+            <div class="errmsg" id="sec-err">Select at least one sector.</div>
+          </div>
+          <div class="field"><label>Tell us about your goals (optional)</label>
+            <textarea name="message" rows="4" placeholder="What legacy are you looking to build? Any specific opportunities or a Special Inquiry?"></textarea>
+          </div>
+          <label style="display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:16px;cursor:pointer;margin-top:4px"><input type="checkbox" name="consent" data-req style="width:auto;margin-top:3px;accent-color:var(--gold)"><span class="cd">I consent to Mansa Conquest contacting me about investment opportunities. <span class="req">*</span></span></label>
+          <div class="errmsg" id="consent-err">Please provide consent to continue.</div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="fstep" data-step="4">
+          <h3 style="font-size:1.5rem;margin-bottom:18px">Review your application</h3>
+          <div class="review-box" id="review"></div>
+          <p class="muted" style="font-size:.82rem;margin-top:16px">By submitting, your details are captured as an inquiry. In production this routes to the Mansa Conquest team via secure server action + email notification.</p>
+        </div>
+
+        <!-- Success -->
+        <div class="fstep" data-step="5">
+          <div class="success-card">
+            <div class="check">✓</div>
+            <h2 style="font-size:2rem;margin-bottom:12px">Application received</h2>
+            <p class="lead" style="margin:0 auto 28px">Thank you. Our investor relations team will be in touch shortly to discuss your legacy with Mansa Conquest.</p>
+            <a href="#/" class="btn btn-gold" data-link>Return home</a>
+          </div>
+        </div>
+
+        <div class="form-nav" id="formnav">
+          <button type="button" class="btn btn-ghost" id="prevBtn" style="visibility:hidden">← Back</button>
+          <button type="button" class="btn btn-gold" id="nextBtn">Continue →</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== LOGIN ===================== -->
+<div class="page" data-page="/login">
+  <section class="auth">
+    <div class="glow"></div>
+    <div class="auth-card reveal">
+      <a href="#/" class="brand" data-link style="margin-bottom:24px;font-size:1.2rem">
+        <svg class="crest" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" stroke="#D4AF37" stroke-width="1.4"/><path d="M11 27V15l5 7 4-9 4 9 5-7v12" stroke="#D4AF37" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><circle cx="20" cy="10" r="1.8" fill="#D4AF37"/></svg>
+        Mansa Conquest
+      </a>
+      <div class="tabs" id="authtabs">
+        <button class="active" data-tab="login">Sign in</button>
+        <button data-tab="magic">Magic link</button>
+      </div>
+      <div data-tabpane="login">
+        <h2>Investor Portal</h2>
+        <p class="sub">Welcome back. Access your dashboard, documents and reports.</p>
+        <div class="field"><label>Email</label><input type="email" placeholder="you@example.com"></div>
+        <div class="field"><label>Password</label><input type="password" placeholder="••••••••"></div>
+        <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="alert('Demo only — Supabase Auth (email + MFA) wires in during the portal build phase.')">Sign in securely</button>
+        <p class="note">Protected by multi-factor authentication.</p>
+      </div>
+      <div data-tabpane="magic" style="display:none">
+        <h2>Magic Link</h2>
+        <p class="sub">We'll email you a secure one-time sign-in link.</p>
+        <div class="field"><label>Email</label><input type="email" placeholder="you@example.com"></div>
+        <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="alert('Demo only — magic-link auth via Supabase in the portal phase.')">Send magic link</button>
+      </div>
+      <div class="divider">New to Mansa Conquest?</div>
+      <a href="#/apply" class="btn btn-ghost" data-link style="width:100%;justify-content:center">Apply to Invest</a>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#/" class="brand" data-link><svg class="crest" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" stroke="#D4AF37" stroke-width="1.4"/><path d="M11 27V15l5 7 4-9 4 9 5-7v12" stroke="#D4AF37" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><circle cx="20" cy="10" r="1.8" fill="#D4AF37"/></svg> Mansa Conquest</a>
+        <p>Building legacies through strategic investments. A diversified venture capital and private investment fund operating across Kenya and Australia.</p>
+      </div>
+      <div><h5>Explore</h5><a href="#/" data-link>Home</a><a href="#/about" data-link>About</a><a href="#/sectors" data-link>Sectors</a><a href="#/portfolio" data-link>Portfolio</a></div>
+      <div><h5>Invest</h5><a href="#/apply" data-link>Apply to Invest</a><a href="#/apply" data-link>Special Inquiry (SIR)</a><a href="#/login" data-link>Investor Login</a></div>
+      <div><h5>Contact</h5><a href="mailto:mansaconquest@gmail.com">mansaconquest@gmail.com</a><a href="tel:+61406339104">+61 406 339 104 (AU)</a><a href="tel:+254703144338">+254 703 144 338 (KE)</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Mansa Conquest. All rights reserved.</span>
+      <span class="regtag">Operating in 🇰🇪 Kenya &amp; 🇦🇺 Australia · Capital at risk</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------- Data ---------- */
+const SECTORS=[
+  {ic:"🏛",name:"Real Estate",desc:"Developing premium properties and sustainable communities across prime locations."},
+  {ic:"⚡",name:"Tech Start-Ups",desc:"Investing in innovative technology ventures shaping the future."},
+  {ic:"🏭",name:"Manufacturing",desc:"Backing cutting-edge production facilities built for scalable growth."},
+  {ic:"📈",name:"Crypto & Stocks",desc:"Strategic positions in digital assets and traditional markets."},
+  {ic:"⛏",name:"Mining & Exploration",desc:"Exploring rare earth elements and precious stones for future value."},
+  {ic:"👗",name:"Fashion & Clothing",desc:"Backing innovative designs and sustainable fashion brands."},
+  {ic:"🚚",name:"Logistics & Transport",desc:"Optimizing supply chains and transportation networks."},
+  {ic:"📜",name:"Franchising & Licensing",desc:"Negotiating franchising, licensing and permits across private and public sectors."}
+];
+const PORTFOLIO=[
+  {logo:"SR",sec:"Real Estate",name:"Savannah Ridge",desc:"Mixed-use sustainable community development in Nairobi's growth corridor.",stage:"Series A",geo:"🇰🇪 Kenya"},
+  {logo:"HX",sec:"Tech Start-Ups",name:"Helix Labs",desc:"AI-driven logistics optimization platform for emerging markets.",stage:"Seed",geo:"🇦🇺 Australia"},
+  {logo:"AU",sec:"Mining & Exploration",name:"Aurelia Minerals",desc:"Rare-earth and precious-stone exploration across East Africa.",stage:"Growth",geo:"🇰🇪 Kenya"},
+  {logo:"FW",sec:"Fashion & Clothing",name:"Forge & Weave",desc:"Sustainable heritage-textile fashion house with global ambitions.",stage:"Seed",geo:"🇦🇺 Australia"},
+  {logo:"MC",sec:"Manufacturing",name:"Meridian Components",desc:"Precision manufacturing facility serving regional supply chains.",stage:"Series B",geo:"🇰🇪 Kenya"},
+  {logo:"VT",sec:"Logistics & Transport",name:"Velocity Transit",desc:"Cross-border freight and last-mile delivery network.",stage:"Growth",geo:"🇦🇺 Australia"}
+];
+
+/* ---------- Render sector/portfolio ---------- */
+function sectorCard(s,i){return `<div class="card reveal d${(i%4)+1}"><div class="ico">${s.ic}</div><h3>${s.name}</h3><p>${s.desc}</p><div class="more">Strategic mandate →</div></div>`}
+document.getElementById('home-sectors').innerHTML=SECTORS.slice(0,4).map(sectorCard).join('');
+document.getElementById('all-sectors').innerHTML=SECTORS.map(sectorCard).join('');
+document.getElementById('portfolio-grid').innerHTML=PORTFOLIO.map((p,i)=>`
+  <div class="pf-card reveal d${(i%3)+1}"><div class="pf-logo">${p.logo}</div>
+  <div class="pf-body"><div class="sec">${p.sec}</div><h4>${p.name}</h4><p>${p.desc}</p>
+  <div class="pf-meta"><span>Stage<br><b>${p.stage}</b></span><span style="text-align:right">Region<br><b>${p.geo}</b></span></div></div></div>`).join('');
+document.getElementById('sector-checks').innerHTML=SECTORS.map(s=>`<label class="choice" style="display:flex;gap:10px;padding:12px;margin:0;border:1px solid var(--line);border-radius:8px;cursor:pointer"><input type="checkbox" name="sectors" value="${s.name}" style="width:auto;accent-color:var(--gold)"><span class="cd" style="color:var(--ivory)">${s.ic} ${s.name}</span></label>`).join('');
+
+/* ---------- Router ---------- */
+const pages=document.querySelectorAll('.page');
+function route(){
+  let path=(location.hash.replace('#','')||'/');
+  if(!document.querySelector(`.page[data-page="${path}"]`))path='/';
+  pages.forEach(p=>p.classList.toggle('active',p.dataset.page===path));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+path));
+  window.scrollTo({top:0,behavior:'instant'in window?'instant':'auto'});
+  document.getElementById('navlinks').classList.remove('open');
+  document.getElementById('burger').classList.remove('open');
+  setTimeout(initReveal,30);
+}
+window.addEventListener('hashchange',route);
+
+/* ---------- Reveal on scroll ---------- */
+let io;
+function initReveal(){
+  const els=document.querySelectorAll('.page.active .reveal:not(.in)');
+  if(io)io.disconnect();
+  io=new IntersectionObserver((ents)=>{ents.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  els.forEach(el=>io.observe(el));
+}
+
+/* ---------- Nav scroll + burger ---------- */
+const hdr=document.getElementById('hdr');
+addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>30));
+document.getElementById('burger').onclick=function(){this.classList.toggle('open');document.getElementById('navlinks').classList.toggle('open')};
+
+/* ---------- Card spotlight ---------- */
+document.addEventListener('mousemove',e=>{
+  const c=e.target.closest('.card');if(!c)return;
+  const r=c.getBoundingClientRect();
+  c.style.setProperty('--mx',(e.clientX-r.left)+'px');
+  c.style.setProperty('--my',(e.clientY-r.top)+'px');
+});
+
+/* ---------- Count up ---------- */
+function countUp(){
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const target=+el.dataset.count;let n=0;const step=Math.max(1,target/40);
+    const suffix=el.textContent.includes('°')?'°':'';
+    const t=setInterval(()=>{n+=step;if(n>=target){n=target;clearInterval(t)}el.textContent=Math.floor(n)+suffix},28);
+  });
+}
+
+/* ---------- Login tabs ---------- */
+document.getElementById('authtabs').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('#authtabs button').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('[data-tabpane]').forEach(p=>p.style.display=p.dataset.tabpane===b.dataset.tab?'block':'none');
+});
+
+/* ---------- Choice highlight ---------- */
+document.querySelectorAll('.choice input[type=radio]').forEach(inp=>{
+  inp.addEventListener('change',()=>{
+    document.querySelectorAll(`input[name="${inp.name}"]`).forEach(o=>o.closest('label').classList.toggle('sel',o.checked));
+  });
+});
+
+/* ---------- Multi-step form ---------- */
+let cur=1;const TOTAL=4;
+const form=document.getElementById('applyForm');
+const nextBtn=document.getElementById('nextBtn'),prevBtn=document.getElementById('prevBtn');
+function showStep(n){
+  document.querySelectorAll('.fstep').forEach(f=>f.classList.toggle('active',+f.dataset.step===n));
+  document.querySelectorAll('#steps .step').forEach((s,i)=>{s.classList.toggle('active',i===n-1);s.classList.toggle('done',i<n-1)});
+  document.getElementById('stepprog').style.width=((Math.min(n,TOTAL)-1)/(TOTAL-1)*100)+'%';
+  prevBtn.style.visibility=n>1&&n<=TOTAL?'visible':'hidden';
+  if(n>TOTAL){document.getElementById('formnav').style.display='none';document.querySelector('.steps').style.opacity='.4'}
+  nextBtn.textContent=n===TOTAL?'Submit application ✓':'Continue →';
+}
+function validateStep(n){
+  let ok=true;
+  const step=document.querySelector(`.fstep[data-step="${n}"]`);
+  step.querySelectorAll('[data-req]').forEach(el=>{
+    let bad=false;
+    if(el.type==='radio'){bad=!form.querySelector(`input[name="${el.name}"]:checked`)}
+    else if(el.type==='checkbox'){bad=!el.checked}
+    else{bad=!el.value.trim()}
+    if(el.dataset.email&&el.value&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value))bad=true;
+    el.classList.toggle('err',bad);
+    const msg=el.closest('.field')?.querySelector('.errmsg');
+    if(msg)msg.classList.toggle('show',bad);
+    if(bad)ok=false;
+  });
+  if(n===3){
+    const anySec=form.querySelectorAll('input[name=sectors]:checked').length>0;
+    document.getElementById('sec-err').classList.toggle('show',!anySec);
+    const consent=form.querySelector('input[name=consent]').checked;
+    document.getElementById('consent-err').classList.toggle('show',!consent);
+    if(!anySec||!consent)ok=false;
+  }
+  return ok;
+}
+function buildReview(){
+  const fd=new FormData(form);
+  const secs=[...form.querySelectorAll('input[name=sectors]:checked')].map(s=>s.value).join(', ')||'—';
+  const rows=[
+    ['Name',`${fd.get('firstName')||''} ${fd.get('lastName')||''}`],
+    ['Email',fd.get('email')||'—'],['Phone',fd.get('phone')||'—'],['Country',fd.get('country')||'—'],
+    ['Investor type',fd.get('investorType')||'—'],['Commitment',fd.get('ticket')||'—'],
+    ['Accredited',fd.get('accredited')||'—'],['Sectors',secs],['Goals',fd.get('message')||'—']
+  ];
+  document.getElementById('review').innerHTML=rows.map(r=>`<div class="kvr"><b>${r[0]}</b><span>${r[1]}</span></div>`).join('');
+}
+nextBtn.onclick=()=>{
+  if(!validateStep(cur))return;
+  if(cur===3)buildReview();
+  if(cur<TOTAL){cur++;showStep(cur)}
+  else{cur=5;showStep(5)}
+};
+prevBtn.onclick=()=>{if(cur>1){cur--;showStep(cur)}};
+
+/* ---------- Init ---------- */
+route();
+countUp();
+</script>
+</body>
+</html>

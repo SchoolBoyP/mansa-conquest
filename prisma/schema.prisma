@@ -1,0 +1,738 @@
+// =============================================================================
+// Mansa Conquest — Prisma Schema
+// Diversified VC / Private Investment Fund platform (Kenya + Australia)
+// Datasource: Supabase (PostgreSQL). Auth: Supabase Auth (auth.users).
+// Money is stored as Decimal(18,2); ownership/percentages as Decimal(7,4).
+// =============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")        // pooled (PgBouncer) connection
+  directUrl = env("DIRECT_URL")          // direct connection for migrations
+}
+
+// =============================================================================
+// ENUMS
+// =============================================================================
+
+enum UserRole {
+  VISITOR          // unauthenticated / lead
+  INVESTOR         // Limited Partner (LP)
+  ADMIN            // operations / staff
+  GENERAL_PARTNER  // founder / GP — full access
+}
+
+enum UserStatus {
+  PENDING_INVITE
+  ACTIVE
+  SUSPENDED
+  DEACTIVATED
+}
+
+enum InvestorType {
+  INDIVIDUAL
+  JOINT
+  ENTITY            // company / fund-of-funds
+  TRUST
+  SMSF              // Australian self-managed super fund
+  INSTITUTIONAL
+}
+
+enum AccreditationStatus {
+  UNVERIFIED
+  PENDING_REVIEW
+  ACCREDITED        // AU: wholesale/sophisticated investor; KE: equivalent
+  REJECTED
+}
+
+enum KycStatus {
+  NOT_STARTED
+  SUBMITTED
+  IN_REVIEW
+  APPROVED
+  REJECTED
+  EXPIRED
+}
+
+enum Jurisdiction {
+  KENYA
+  AUSTRALIA
+  OTHER
+}
+
+enum Sector {
+  REAL_ESTATE
+  TECH_STARTUPS
+  MANUFACTURING
+  CRYPTO_STOCKS
+  MINING_EXPLORATION
+  FASHION_CLOTHING
+  LOGISTICS_TRANSPORT
+  FRANCHISING_LICENSING
+  OTHER
+}
+
+enum FundStatus {
+  FUNDRAISING
+  INVESTING
+  HARVESTING
+  CLOSED
+  WOUND_DOWN
+}
+
+enum CommitmentStatus {
+  SOFT_CIRCLED
+  SIGNED
+  ACTIVE
+  DEFAULTED
+  TRANSFERRED
+  CLOSED
+}
+
+enum DealStage {
+  SOURCED
+  SCREENING
+  DUE_DILIGENCE
+  IC_REVIEW        // investment committee
+  TERM_SHEET
+  CLOSING
+  INVESTED
+  PASSED
+  ON_HOLD
+}
+
+enum PortfolioStatus {
+  ACTIVE
+  EXITED
+  WRITTEN_OFF
+  IPO
+  ACQUIRED
+}
+
+enum InvestmentType {
+  EQUITY
+  SAFE
+  CONVERTIBLE_NOTE
+  DEBT
+  REAL_ASSET
+  TOKEN
+}
+
+enum DocumentCategory {
+  SUBSCRIPTION_AGREEMENT
+  LP_AGREEMENT
+  KYC_AML
+  CAPITAL_CALL_NOTICE
+  DISTRIBUTION_NOTICE
+  QUARTERLY_REPORT
+  ANNUAL_REPORT
+  TAX_DOCUMENT
+  FINANCIAL_STATEMENT
+  PITCH_DECK
+  TERM_SHEET
+  LEGAL
+  OTHER
+}
+
+enum DocumentVisibility {
+  PRIVATE          // single investor
+  FUND_LPS         // all LPs in a fund
+  ALL_INVESTORS
+  INTERNAL         // staff/GP only
+}
+
+enum CapitalCallStatus {
+  DRAFT
+  ISSUED
+  PARTIALLY_PAID
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PARTIAL
+  PAID
+  OVERDUE
+  WAIVED
+}
+
+enum DistributionType {
+  RETURN_OF_CAPITAL
+  CAPITAL_GAIN
+  DIVIDEND
+  INTEREST
+  RECALLABLE
+}
+
+enum ReportType {
+  QUARTERLY
+  ANNUAL
+  CAPITAL_ACCOUNT_STATEMENT
+  NAV_STATEMENT
+  PERFORMANCE
+  TAX
+  AD_HOC
+}
+
+enum CommunicationType {
+  ANNOUNCEMENT
+  DIRECT_MESSAGE
+  NEWSLETTER
+  ALERT
+}
+
+enum InquiryType {
+  GENERAL_CONTACT
+  SPECIAL_INQUIRY   // SIR service
+  INVESTOR_INTEREST
+  PARTNERSHIP
+}
+
+enum InquiryStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  CONVERTED
+  ARCHIVED
+}
+
+enum NotificationType {
+  CAPITAL_CALL
+  DISTRIBUTION
+  DOCUMENT
+  REPORT
+  MESSAGE
+  KYC
+  SYSTEM
+}
+
+// =============================================================================
+// IDENTITY & ACCESS
+// =============================================================================
+
+model User {
+  id            String     @id @default(cuid())
+  // Maps to Supabase auth.users.id (UUID). Auth, password, MFA, magic-link,
+  // and email verification are owned by Supabase Auth — not duplicated here.
+  authUserId    String?    @unique @db.Uuid
+  email         String     @unique
+  firstName     String?
+  lastName      String?
+  phone         String?
+  avatarUrl     String?
+  role          UserRole   @default(VISITOR)
+  status        UserStatus @default(PENDING_INVITE)
+  mfaEnabled    Boolean    @default(false)
+  lastLoginAt   DateTime?
+  invitedById   String?
+  invitedBy     User?      @relation("UserInvites", fields: [invitedById], references: [id])
+  invitees      User[]     @relation("UserInvites")
+
+  investorProfile   InvestorProfile?
+  documentsUploaded Document[]        @relation("DocumentUploader")
+  communicationsSent Communication[]  @relation("CommunicationSender")
+  messageRecipients MessageRecipient[]
+  notifications     Notification[]
+  auditLogs         AuditLog[]
+  assignedDeals     Deal[]            @relation("DealOwner")
+  assignedInquiries Inquiry[]         @relation("InquiryAssignee")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([role])
+  @@index([status])
+  @@map("users")
+}
+
+// =============================================================================
+// INVESTORS (LPs)
+// =============================================================================
+
+model InvestorProfile {
+  id          String       @id @default(cuid())
+  userId      String       @unique
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type        InvestorType @default(INDIVIDUAL)
+  legalName   String       // individual or entity legal name
+  displayName String?
+  taxId       String?      // TFN (AU) / KRA PIN (KE) — encrypt at app layer
+  jurisdiction Jurisdiction @default(OTHER)
+  countryCode String?      // ISO 3166-1 alpha-2
+  addressLine1 String?
+  addressLine2 String?
+  city        String?
+  state       String?
+  postalCode  String?
+
+  accreditation       AccreditationStatus @default(UNVERIFIED)
+  accreditationExpiry DateTime?
+  kycStatus           KycStatus           @default(NOT_STARTED)
+  kycCompletedAt      DateTime?
+  riskProfile         String?             // conservative | balanced | aggressive
+  bankingDetailsRef   String?             // tokenized reference, never raw
+
+  commitments   FundCommitment[]
+  capitalCallLineItems CapitalCallLineItem[]
+  distributionLineItems DistributionLineItem[]
+  documents     Document[]
+  reportAccess  ReportRecipient[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([kycStatus])
+  @@index([accreditation])
+  @@map("investor_profiles")
+}
+
+// =============================================================================
+// FUNDS
+// =============================================================================
+
+model Fund {
+  id            String     @id @default(cuid())
+  name          String
+  slug          String     @unique
+  vintageYear   Int?
+  status        FundStatus @default(FUNDRAISING)
+  strategy      String?    @db.Text
+  thesis        String?    @db.Text
+  currency      String     @default("USD") // ISO 4217
+  targetSize    Decimal?   @db.Decimal(18, 2)
+  hardCap       Decimal?   @db.Decimal(18, 2)
+  totalCommitted Decimal   @default(0) @db.Decimal(18, 2)
+  totalCalled   Decimal    @default(0) @db.Decimal(18, 2)
+  totalDistributed Decimal @default(0) @db.Decimal(18, 2)
+  managementFeePct Decimal? @db.Decimal(5, 2)
+  carryPct      Decimal?   @db.Decimal(5, 2)
+  hurdleRatePct Decimal?   @db.Decimal(5, 2)
+  vintageOpenAt DateTime?
+  finalCloseAt  DateTime?
+
+  commitments   FundCommitment[]
+  investments   Investment[]
+  capitalCalls  CapitalCall[]
+  distributions Distribution[]
+  reports       Report[]
+  documents     Document[]
+  deals         Deal[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@map("funds")
+}
+
+model FundCommitment {
+  id            String           @id @default(cuid())
+  fundId        String
+  fund          Fund             @relation(fields: [fundId], references: [id], onDelete: Cascade)
+  investorId    String
+  investor      InvestorProfile  @relation(fields: [investorId], references: [id], onDelete: Cascade)
+
+  commitmentAmount Decimal       @db.Decimal(18, 2)
+  calledAmount     Decimal       @default(0) @db.Decimal(18, 2)
+  distributedAmount Decimal      @default(0) @db.Decimal(18, 2)
+  ownershipPct     Decimal?      @db.Decimal(7, 4)
+  status        CommitmentStatus @default(SOFT_CIRCLED)
+  signedAt      DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([fundId, investorId])
+  @@index([status])
+  @@map("fund_commitments")
+}
+
+// =============================================================================
+// DEAL PIPELINE
+// =============================================================================
+
+model Deal {
+  id            String    @id @default(cuid())
+  name          String
+  companyName   String
+  sector        Sector    @default(OTHER)
+  stage         DealStage @default(SOURCED)
+  description   String?   @db.Text
+  source        String?   // referral, inbound, outbound, etc.
+  geography     String?
+  askAmount     Decimal?  @db.Decimal(18, 2)
+  proposedAmount Decimal? @db.Decimal(18, 2)
+  preMoneyValuation Decimal? @db.Decimal(18, 2)
+  probabilityPct Decimal? @db.Decimal(5, 2)
+  expectedCloseAt DateTime?
+  passedReason  String?   @db.Text
+
+  fundId        String?
+  fund          Fund?     @relation(fields: [fundId], references: [id])
+  ownerId       String?
+  owner         User?     @relation("DealOwner", fields: [ownerId], references: [id])
+  portfolioCompany PortfolioCompany?
+
+  documents     Document[]
+  notes         DealNote[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([stage])
+  @@index([sector])
+  @@map("deals")
+}
+
+model DealNote {
+  id        String   @id @default(cuid())
+  dealId    String
+  deal      Deal     @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  authorId  String?
+  body      String   @db.Text
+  createdAt DateTime @default(now())
+
+  @@index([dealId])
+  @@map("deal_notes")
+}
+
+// =============================================================================
+// PORTFOLIO
+// =============================================================================
+
+model PortfolioCompany {
+  id           String          @id @default(cuid())
+  name         String
+  slug         String          @unique
+  sector       Sector          @default(OTHER)
+  status       PortfolioStatus @default(ACTIVE)
+  description  String?         @db.Text
+  website      String?
+  logoUrl      String?
+  headquarters String?
+  foundedYear  Int?
+  dealId       String?         @unique
+  deal         Deal?           @relation(fields: [dealId], references: [id])
+
+  investments  Investment[]
+  valuations   Valuation[]
+  documents    Document[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sector])
+  @@index([status])
+  @@map("portfolio_companies")
+}
+
+model Investment {
+  id            String         @id @default(cuid())
+  fundId        String
+  fund          Fund           @relation(fields: [fundId], references: [id])
+  companyId     String
+  company       PortfolioCompany @relation(fields: [companyId], references: [id])
+
+  type          InvestmentType @default(EQUITY)
+  round         String?        // Seed, Series A, etc.
+  amountInvested Decimal       @db.Decimal(18, 2)
+  ownershipPct  Decimal?       @db.Decimal(7, 4)
+  shareCount    Decimal?       @db.Decimal(18, 4)
+  entryValuation Decimal?      @db.Decimal(18, 2)
+  currentValuation Decimal?    @db.Decimal(18, 2)
+  realizedValue Decimal?       @db.Decimal(18, 2)
+  investedAt    DateTime?
+  exitedAt      DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([fundId])
+  @@index([companyId])
+  @@map("investments")
+}
+
+model Valuation {
+  id          String   @id @default(cuid())
+  companyId   String
+  company     PortfolioCompany @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  valuation   Decimal  @db.Decimal(18, 2)
+  asOfDate    DateTime
+  methodology String?
+  note        String?  @db.Text
+  createdAt   DateTime @default(now())
+
+  @@index([companyId, asOfDate])
+  @@map("valuations")
+}
+
+// =============================================================================
+// CAPITAL CALLS & DISTRIBUTIONS
+// =============================================================================
+
+model CapitalCall {
+  id          String            @id @default(cuid())
+  fundId      String
+  fund        Fund              @relation(fields: [fundId], references: [id], onDelete: Cascade)
+  callNumber  Int
+  status      CapitalCallStatus @default(DRAFT)
+  totalAmount Decimal           @db.Decimal(18, 2)
+  purpose     String?           @db.Text
+  issuedAt    DateTime?
+  dueDate     DateTime?
+
+  lineItems   CapitalCallLineItem[]
+  documents   Document[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([fundId, callNumber])
+  @@index([status])
+  @@map("capital_calls")
+}
+
+model CapitalCallLineItem {
+  id            String        @id @default(cuid())
+  capitalCallId String
+  capitalCall   CapitalCall   @relation(fields: [capitalCallId], references: [id], onDelete: Cascade)
+  investorId    String
+  investor      InvestorProfile @relation(fields: [investorId], references: [id], onDelete: Cascade)
+
+  amountDue     Decimal       @db.Decimal(18, 2)
+  amountPaid    Decimal       @default(0) @db.Decimal(18, 2)
+  paymentStatus PaymentStatus @default(PENDING)
+  paidAt        DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([capitalCallId, investorId])
+  @@index([paymentStatus])
+  @@map("capital_call_line_items")
+}
+
+model Distribution {
+  id          String           @id @default(cuid())
+  fundId      String
+  fund        Fund             @relation(fields: [fundId], references: [id], onDelete: Cascade)
+  distNumber  Int
+  type        DistributionType @default(RETURN_OF_CAPITAL)
+  totalAmount Decimal          @db.Decimal(18, 2)
+  recordDate  DateTime?
+  paymentDate DateTime?
+  note        String?          @db.Text
+
+  lineItems   DistributionLineItem[]
+  documents   Document[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([fundId, distNumber])
+  @@map("distributions")
+}
+
+model DistributionLineItem {
+  id             String       @id @default(cuid())
+  distributionId String
+  distribution   Distribution @relation(fields: [distributionId], references: [id], onDelete: Cascade)
+  investorId     String
+  investor       InvestorProfile @relation(fields: [investorId], references: [id], onDelete: Cascade)
+  amount         Decimal      @db.Decimal(18, 2)
+  paidAt         DateTime?
+
+  createdAt DateTime @default(now())
+
+  @@unique([distributionId, investorId])
+  @@map("distribution_line_items")
+}
+
+// =============================================================================
+// DOCUMENTS (Supabase Storage)
+// =============================================================================
+
+model Document {
+  id          String             @id @default(cuid())
+  title       String
+  category    DocumentCategory   @default(OTHER)
+  visibility  DocumentVisibility @default(PRIVATE)
+  storagePath String             // Supabase Storage object path
+  mimeType    String?
+  sizeBytes   Int?
+  version     Int                @default(1)
+
+  uploadedById String?
+  uploadedBy   User?             @relation("DocumentUploader", fields: [uploadedById], references: [id])
+
+  // Optional scoping — a document may attach to any of these.
+  investorId   String?
+  investor     InvestorProfile?  @relation(fields: [investorId], references: [id])
+  fundId       String?
+  fund         Fund?             @relation(fields: [fundId], references: [id])
+  dealId       String?
+  deal         Deal?             @relation(fields: [dealId], references: [id])
+  companyId    String?
+  company      PortfolioCompany? @relation(fields: [companyId], references: [id])
+  capitalCallId String?
+  capitalCall  CapitalCall?      @relation(fields: [capitalCallId], references: [id])
+  distributionId String?
+  distribution Distribution?     @relation(fields: [distributionId], references: [id])
+  reportId     String?
+  report       Report?           @relation(fields: [reportId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+  @@index([visibility])
+  @@index([investorId])
+  @@index([fundId])
+  @@map("documents")
+}
+
+// =============================================================================
+// REPORTS
+// =============================================================================
+
+model Report {
+  id          String     @id @default(cuid())
+  fundId      String
+  fund        Fund       @relation(fields: [fundId], references: [id], onDelete: Cascade)
+  type        ReportType @default(QUARTERLY)
+  title       String
+  periodLabel String?    // "Q1 2026"
+  periodStart DateTime?
+  periodEnd   DateTime?
+  summary     String?    @db.Text
+  navValue    Decimal?   @db.Decimal(18, 2)
+  irrPct      Decimal?   @db.Decimal(7, 4)
+  moic        Decimal?   @db.Decimal(7, 4)
+  dpi         Decimal?   @db.Decimal(7, 4)
+  publishedAt DateTime?
+
+  recipients  ReportRecipient[]
+  documents   Document[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([fundId, type])
+  @@map("reports")
+}
+
+model ReportRecipient {
+  id         String          @id @default(cuid())
+  reportId   String
+  report     Report          @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  investorId String
+  investor   InvestorProfile @relation(fields: [investorId], references: [id], onDelete: Cascade)
+  viewedAt   DateTime?
+
+  @@unique([reportId, investorId])
+  @@map("report_recipients")
+}
+
+// =============================================================================
+// COMMUNICATIONS
+// =============================================================================
+
+model Communication {
+  id        String            @id @default(cuid())
+  type      CommunicationType @default(ANNOUNCEMENT)
+  subject   String
+  body      String            @db.Text
+  senderId  String?
+  sender    User?             @relation("CommunicationSender", fields: [senderId], references: [id])
+  fundId    String?           // optional audience scoping
+  publishedAt DateTime?
+
+  recipients MessageRecipient[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([type])
+  @@map("communications")
+}
+
+model MessageRecipient {
+  id              String        @id @default(cuid())
+  communicationId String
+  communication   Communication @relation(fields: [communicationId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  readAt          DateTime?
+
+  @@unique([communicationId, userId])
+  @@map("message_recipients")
+}
+
+// =============================================================================
+// PUBLIC INQUIRIES (Contact + SIR forms)
+// =============================================================================
+
+model Inquiry {
+  id          String        @id @default(cuid())
+  type        InquiryType   @default(GENERAL_CONTACT)
+  status      InquiryStatus @default(NEW)
+  fullName    String
+  email       String
+  phone       String?
+  company     String?
+  sector      Sector?
+  message     String        @db.Text
+  source      String?       // page / campaign
+  assignedToId String?
+  assignedTo  User?         @relation("InquiryAssignee", fields: [assignedToId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([type])
+  @@index([status])
+  @@map("inquiries")
+}
+
+// =============================================================================
+// NOTIFICATIONS & AUDIT
+// =============================================================================
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      NotificationType @default(SYSTEM)
+  title     String
+  body      String?          @db.Text
+  link      String?
+  readAt    DateTime?
+  createdAt DateTime         @default(now())
+
+  @@index([userId, readAt])
+  @@map("notifications")
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  actor      User?    @relation(fields: [actorId], references: [id])
+  action     String   // e.g. "capital_call.issued"
+  entityType String
+  entityId   String?
+  metadata   Json?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([actorId])
+  @@map("audit_logs")
+}

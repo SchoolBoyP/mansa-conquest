@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-serif: "Cormorant Garamond";
+  --font-sans: "Inter";
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: #0b0b0c;
+  color: #f5f1e6;
+  -webkit-font-smoothing: antialiased;
+}
+::selection {
+  background: #d4af37;
+  color: #0b0b0c;
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-content px-6;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.28em] text-gold;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply inline-block h-px w-7 bg-gold/70;
+  }
+  .btn {
+    @apply inline-flex items-center gap-2.5 rounded-lg px-7 py-3.5 text-sm font-semibold tracking-wide transition-all duration-200;
+  }
+  .btn-gold {
+    @apply text-[#1a1407] shadow-[0_8px_30px_-10px_rgba(212,175,55,.6)];
+    background: linear-gradient(135deg, #e8c658, #a8842a);
+  }
+  .btn-gold:hover {
+    @apply -translate-y-0.5 shadow-[0_14px_40px_-10px_rgba(212,175,55,.75)];
+  }
+  .btn-ghost {
+    @apply border border-line text-ivory hover:border-gold hover:text-gold;
+  }
+  .card-surface {
+    @apply rounded-2xl border border-line p-8 transition-all duration-300;
+    background: linear-gradient(160deg, #141416, #1e1e22);
+  }
+  .field-input {
+    @apply w-full rounded-lg border border-line bg-graphite px-4 py-3 text-[0.95rem] text-ivory transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20;
+  }
+}
+
+.text-shimmer {
+  background: linear-gradient(100deg, #a8842a, #e8c658, #f5f1e6, #e8c658, #a8842a);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
