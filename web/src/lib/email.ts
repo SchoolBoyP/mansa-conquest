@@ -3,8 +3,10 @@ import { Resend } from "resend";
 const resendApiKey = process.env.RESEND_API_KEY;
 const contactInbox = process.env.CONTACT_INBOX ?? "mansaconquest@gmail.com";
 
-// Until a custom sending domain is verified in Resend, use their shared sender.
-const FROM = "Mansa Conquest <onboarding@resend.dev>";
+// Sender. Once mansaconquest.com is verified in Resend, set EMAIL_FROM in Vercel
+// to e.g. "Mansa Conquest <noreply@mansaconquest.com>" so mail reaches any inbox.
+// Falls back to Resend's shared sender (only delivers to the Resend account owner).
+const FROM = process.env.EMAIL_FROM ?? "Mansa Conquest <onboarding@resend.dev>";
 
 export type ApplicationEmail = {
   fullName: string;
